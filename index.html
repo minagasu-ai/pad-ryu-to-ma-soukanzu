@@ -89,6 +89,7 @@ aside h3::after{content:"";flex:1;height:1px;background:var(--line)}
 .sum b{color:var(--ink)}
 .sum ul{padding-left:18px;margin:4px 0}
 .sum li::marker{color:var(--gold)}
+.illust{font-size:12px;color:var(--ink);margin:2px 0 5px;letter-spacing:.04em}.illust span{display:inline-block;font-size:10.5px;color:var(--gold);border:1px solid var(--gold);border-radius:3px;padding:0 5px;margin-right:7px;opacity:.9}
 .src{font-size:11.5px;color:var(--sub);line-height:1.7;margin-top:22px}
 .src a{color:var(--gold)}
 /* story */
@@ -796,6 +797,7 @@ const adj={}; nodes.forEach(n=>adj[n.id]=[]); links.forEach(l=>{adj[l.a].push(l)
 const dragonsOf = id => adj[id].filter(l=>l.t==="con").map(l=>l.a===id?l.b:l.a);
 const esc=s=>String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 const typeOrder = Object.keys(R);
+const ILLUST = {"ティフォン":"茶壱","ガディウス":"茶壱","リューネ":"茶壱","シルヴィ":"茶壱","インディゴ":"茶壱","レーヴェン":"茶壱","ラジョア":"茶壱","キリ":"茶壱","リーベ":"茶壱","リエト":"茶壱","ドルヴァ":"茶壱","マジェ":"茶壱","リンシア":"池屋","ツバキ":"池屋","スミレ":"池屋","カエデ":"池屋","モミジ":"池屋","イルム":"池屋","イルミナ":"池屋","メル":"池屋","ゴエティア":"池屋","チェスター":"池屋","ウィジャス":"池屋","リィ":"池屋","6号（アルトゥラ）":"池屋","リクウ":"池屋","ディステル":"池屋","イデアル":"池屋","スオウ":"池屋","ハイレン":"池屋","クロトビ":"池屋","ダンタリオン":"池屋","ヤマトタケル＝ドラゴン":"池屋","ワダツミ＝ドラゴン":"池屋","ヤマツミ＝ドラゴン":"池屋","ヴァンド":"池屋","ゼローグ∞":"イトウヨウイチ","ズオー":"イトウヨウイチ","ロミア":"イトウヨウイチ","ロシェ":"イトウヨウイチ","ニース":"イトウヨウイチ","ヴァレリア":"イトウヨウイチ","ミラ":"イトウヨウイチ","ディアラ":"イトウヨウイチ","ガイノウト":"安達洋介","アルス＝ノウァ":"安達洋介","アーミル":"安達洋介","プラリネ":"安達洋介","ソニア＝グラン":"安達洋介","エンラ":"安達洋介","マイネ":"安達洋介","チュアン":"安達洋介","デウス＝エクス＝マキナ":"安達洋介","ウォレス":"安達洋介","フラグレム":"安達洋介","トア":"安達洋介","ターディス":"村瀬倫太郎","ヴェルド":"村瀬倫太郎","セディン":"村瀬倫太郎","ノルディス":"NINNIN","サツキ":"NINNIN","スカーレット":"NINNIN","クーリア":"NINNIN","シャゼル":"NINNIN","ヴィゴ":"NINNIN","グリーダ":"NINNIN","グラト":"NINNIN","アムネル":"NINNIN","クァージェ":"NINNIN","アルファ":"中村エイト","オメガ":"中村エイト","ラシオス":"中村エイト","エナ":"中村エイト","ティターニア":"風間雷太","ピュール＝マキナ":"風間雷太","シャリテ＝マキナ":"風間雷太","カンナ":"風間雷太（初出）／NINNIN","ミル":"日野慎之助","ジィルクロム":"軍島曹一郎","サリア":"コザキユースケ（初出）／茶壱","ヴォルスーン":"鈴木香織（初出）／北熊"};
 const BADGE = {"故人":"#5b6478","重体":"#c92a2a","昏睡":"#c92a2a","重傷":"#c92a2a","倒れる":"#c92a2a","敗北":"#56617a","消失":"#0f7f96"};
 
 // ===== 全体図 =====
@@ -1133,6 +1135,7 @@ function renderChar(id){
   panel.innerHTML=`
     <span class="tag" style="background:${F[n.f].color}">${F[n.f].name}</span>${P[id]&&P[id][4]?`<span class="tag bdg" style="background:${BADGE[P[id][4]]}">${P[id][4]}</span>`:""}
     <h2>${esc(id)}</h2>
+    ${ILLUST[id]?`<div class="illust"><span>イラスト</span>${esc(ILLUST[id].split("／").map(x=>x.replace(/(（初出）)?$/,"先生$1")).join("／"))}</div>`:""}
     <div class="sub">${esc(n.title)}</div>
     ${dr.length&&!n.dragon?`<div style="font-size:12.5px;margin-top:6px;color:var(--cyan)">龍：${dr.map(d=>`<span class="lnk" onclick="goFocus('${esc(d)}')">${esc(d)}</span>`).join("、")}</div>`:""}
     ${BIO[id]?`<h3>人物紹介</h3><div class="bio">${BIO[id].split("\n").map(p=>`<p>${esc(p)}</p>`).join("")}</div>`:""}
@@ -1171,6 +1174,7 @@ function renderHome(){
   </div>
   <div class="src">※ファンが作成した非公式の相関図です。<br>出典：パズル＆ドラゴンズ公式「Story 龍と魔の物語」<br>
     <a href="https://pad.gungho.jp/member/story/index.html">ストーリーTOP（最新話）</a> ／ <a href="https://pad.gungho.jp/member/story/chapter/black.html">黒の章</a> ／ <a href="https://pad.gungho.jp/member/story/chapter/white.html">白の章</a> ／ <a href="https://pad.gungho.jp/member/story/chapter/dragon.html">龍の章</a> ／ <a href="https://pad.gungho.jp/member/story/chapter/kizuna.html">絆の章</a> ／ <a href="https://pad.gungho.jp/member/story/chapter/gossip.html">閑話</a> ／ <a href="https://pad.gungho.jp/member/story/flowchart/index.html">物語の流れ</a> ／ <a href="https://pad.gungho.jp/member/story/glossary/index.html">用語集</a> ／ 各キャラクターpickupページ<br>
+    ※イラスト担当の表記は<a href="https://w.atwiki.jp/pzdr_illust/">パズドライラストレーターまとめwiki</a>を参照しました（掲載のない人物は空欄）。<br>
     ※閑話のIF回（「いつか過ごすかもしれない」系・学園パロディ）は関係に含めていません。<br>
     ※公式で名前を伏せて書かれた人物（「青年」等）は、本編で明かされた名前に置き換えています。</div>`;
 }
