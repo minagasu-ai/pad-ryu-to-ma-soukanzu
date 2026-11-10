@@ -110,6 +110,16 @@ aside h3::after{content:"";flex:1;height:1px;background:var(--line)}
 .ch-b h4{font-size:12.5px;margin:0 0 4px;color:var(--ink);letter-spacing:.06em;display:flex;align-items:center;gap:8px}
 .ch-b h4::before{content:"";width:14px;height:1px;background:currentColor;opacity:.6}
 .ch-b p{font-size:14px;line-height:1.95;margin:0 0 14px;color:#d9dbe2;text-align:justify}
+.kw{margin-top:44px;padding-top:30px;border-top:1px dashed var(--line)}
+.kw h2{font-family:var(--display);font-size:23px;margin:0 0 6px;letter-spacing:.05em}
+.kw h3{font-family:var(--display);font-size:16.5px;margin:28px 0 4px;display:flex;align-items:center;gap:9px;letter-spacing:.05em}
+.kw h3 i{width:8px;height:8px;transform:rotate(45deg);display:inline-block;flex:none}
+.kw-n{font-size:12.5px;color:var(--sub);margin:0 0 12px;line-height:1.7}
+.kw-g{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:12px}
+.kw-c{background:var(--panel);border:1px solid var(--line);border-top:2px solid;border-radius:10px;padding:13px 16px 6px}
+.kw-c h4{font-family:var(--display);font-size:15.5px;margin:0 0 2px;color:var(--ink)}
+.kw-o{font-size:11px;color:var(--sub);margin:0 0 8px}
+.kw-c p:last-child{font-size:13.5px;line-height:1.85;color:#d9dbe2;margin:0 0 10px;text-align:justify}
 .st-end{font-size:12px;color:var(--sub);line-height:1.8;margin:6px 0 0 42px}
 @media (max-width:860px){#story{padding:18px 14px 40px;height:auto}.ch{padding-left:22px}.st-end{margin-left:30px}}
 /* list */
@@ -1055,6 +1065,31 @@ const STORY=[
   ["見えすぎる者の選択","未来の可能性が見えるスオウには、今回の争いに自分が深入りするほど結末が悪くなることが分かっていた。だから龍玉の届け物や道案内のような、間接的な手助けだけを選ぶ。それでも避けたい未来は動かせないと悟ると、医師ハイレンを呼び、狙撃手ミラを借り、せめて犠牲を減らすために手を尽くした。"],
   ["鬼に戻る夜","レーヴェンの術で契約を断たれたスオウは、瞳を失い、かつての鬼の姿に戻る。見えないまま戦うよう育てられた彼は、それでも人工の龍を斬り伏せ、レーヴェンにただ一人、刃を届かせた。その姿にユキアカネはクロトビを重ね、鬼であることは簡単には消えないのかと胸を痛める。そして数日後、彼女の目を借りて見た最悪の未来は現実になった。アルファもオメガもユキアカネも、伸ばした手の先で影に呑まれる。何も見えなくなった彼がこれからどうするのか。物語はその問いで止まっている。"]]}
 ];
+
+// ===== 閑話・季節の物語（本編とは別枠。公式の文章は使わず要約） =====
+const KANWA=[
+ {g:"龍たちの胸の内",c:"#3fd4ea",n:"契約龍や龍神の側から見た、短い独白のような話。",items:[
+  ["双子の雷龍","契約龍の過去【滅雷龍】【浄雷龍】","ドルヴァはティフォンと魂を結んだ瞬間、どこか懐かしいものを感じ取っていた。その理由を本人はまだ知らない。一方セディンとガディウスの最初の契約は、互いに相手のものを奪うつもりで結んだもので、だからこそ魂の形が少しずつ歪んでいった。"],
+  ["待ち続ける龍たち","契約龍の過去【煌兎龍】【溟鮫龍】【嵐鷹龍】","フラグレムだけが、サリアの前世を覚えている。今度こそ願いは叶うのかと行く末を見守っている。トアは、力を受け継いだリューネがどんな願いのために還爪を使うのかにだけ関心を寄せていた。クァージェがシルヴィと契約した裏には、退屈しのぎの相手を欲しがった風龍王リンシアの思惑があった。"],
+  ["転界の龍神と龍喚士","転界龍の過去【緋空司】【藍海司】【碧地司】","守りたいものを失って荒れていた龍神を鎮めたのは、かつて失ったはずのツバキだった。ワダツミ＝ドラゴンは、我が子のように育てたスミレの初めての願いに応えて、海底にいたツバキを空へ返す。ヤマツミ＝ドラゴンは、名を喚ぼうと修練に励むカエデを見守りながら、本当は自分を喚ばねばならない事態など来ず、弟子と穏やかに過ごせることを望んでいる。"]]},
+ {g:"本編の裏側",c:"#d8b25a",n:"本編の合間や、登場人物の昔を描いた小話。",items:[
+  ["龍玉づくりの依頼","おつかい／夜の飲み会","龍王に頼まれたスオウは、細工師チュアンの工房を訪ねて龍玉づくりを依頼する。材料と代金は依頼側持ちという条件で話がまとまった。後日、スオウ、ヴァレリア、チュアンの三人は月見酒を囲む。ヴァレリアは、教え子どうしが争うことになった現状に胸を痛めつつ、叱りに行く覚悟を決めていた。翌朝、酔いつぶれた二人を連れ帰ったのは、それぞれの弟子と子どもたちである。"],
+  ["振り回される側の集い","閑話【愚痴会？】","大人たちが酒盛りをしている間、アルファとオメガ、ヴァレリアの弟子のミラ、リエト、ヴィゴは食卓を囲んで日頃の不満を言い合う。旅費を酒に変えられる話や、武器なしで魔物の巣に放り込まれた話が飛び交うが、結局だれも相手から離れる気はないのだった。"],
+  ["同じ顔をしている","オトモダチ","計画が順調に進むなか、ディステルは首飾りに触れながら、ここにいない旧友のことを考えていた。それを見かけたロシェは、その表情は自分が親友を思うときと同じだと面白がる。ディステルは取り合わないが、彼女がはしゃいでこぼした飲み物は、しっかり彼の服にかかっていた。"],
+  ["館が賑やかだった頃","閑話【あの頃の仮装祭】","まだイデアルの館に家族の笑顔があった頃の話。見習いのマイネは、仮装とお菓子でみんなを驚かせようとこっそり準備していた。ところが待ちきれない幼い龍たちがお菓子を持って飛び出してしまう。着ぐるみのまま追いかけた彼女は転んで目を回し、イデアルと幼いアルトゥラに見つかった。"],
+  ["一番似合うと思った","閑話【純白の衣装】","師の頼みで教会の手伝いをすることになった、若い頃のプラリネとロシェ。白い衣装を着せられたロシェは、自分には似合わないと帰ろうとする。プラリネが、君に一番似合うと思って選んだのだとまっすぐ伝えると、ロシェは真っ赤になって、今日だけと折れた。のちの二人を知っていると胸に来る一幕。"]]},
+ {g:"季節の催しと、もしもの話",c:"#ff6fb5",n:"季節イベントに合わせた番外編。夢や「いつかあるかもしれない」光景として描かれ、本編の出来事とは切り離されています。",items:[
+  ["花嫁姿の奪還劇","6月の夢","ガディウスが悪友と白い衣装で教会に乗り込み、サリアを担いで逃げ出す。丁寧に扱えと叫んだところで目が覚めたのは、育ての親のガイノウトだった。"],
+  ["守護者の夏休み","真夏の休暇","珍しく聖域の務めから離れたミルは、誘われるまま砂浜へ出かける。待っていた友人のナビィに水鉄砲を渡され、今日だけは使命を忘れて夏を楽しむことにした。"],
+  ["ふたりのクリスマス","いつか過ごすかもしれない聖夜 Ⅰ〜Ⅳ","魔導書が映し出す、どこかの誰かの賑やかな聖夜に囲まれて、イルミナは生まれて初めてのクリスマス会を体験する。相手はお忍びでやって来たロミア。手袋やぬいぐるみ、絵が飛び出す魔導書を贈り合い、イルミナは初めて見せる表情をした。屋根の上では、サンタ役のズオー、スカーレット、アーミルが、二人が寝つくのを雪をかぶって待っている。準備に張り切りすぎて眠ってしまったロミアを、スカーレットが見守る話もある。"],
+  ["お菓子もいたずらも","閑話【トリック&トリート！】Ⅰ・Ⅱ","収穫祭に浮かれたスオウは、お菓子といたずらの両方をせしめる合言葉をオメガに教え込む。呆れていたアルファも、オメガに誘われると腹をくくって一緒に回ることにした。翌年は子ども姿の三人でリクウを訪ね、高級な金平糖を要求して追い回す。ユキアカネの背で戦利品を抱えて笑うスオウの鞄からは、誰かの割れた眼鏡がのぞいていた。"],
+  ["いつか戻る食卓","閑話【いつか過ごすかもしれない幸福】","感謝を込めてお菓子を贈る日。イデアルは手作りのチョコレートをアルトゥラとヴァンドに渡す。屈強な龍が感激して涙をこぼし、子どもは一緒に食べようと母の裾を引く。辛いことの後に、また家族で笑えているという、いつか来るかもしれない光景として描かれる。"],
+  ["学園での一日","閑話【在りし日の職員室】【在りし日の図書室】","登場人物が学園の教師や生徒だったら、という設定の二編。人気教師のヴァレリアは、ニースとミラの姉妹との雑談から、体力テストで派手に転んだリエトの特訓を決めてしまう。図書室では、学生のリクウとディステルが新刊を奪い合って大騒ぎし、レーヴェンとプラリネに仲が良いと評されたあげく、しばらく出入り禁止になった。"],
+  ["似合わないお揃い","閑話【夢のような出来事】","お気に入りのドレスで上機嫌だったクーリアは、同じく正装してはしゃぐモルムのせいで台無しの気分になる。それでも、連れ歩く龍が野暮ったいのは嫌だからと、渋々その装いを整えてやることにした。喜ぶモルムを足蹴にしつつ、口元は少しだけ緩んでいたのかもしれない。"],
+  ["海辺の監視員","閑話【夏の兄弟喧嘩】","避暑地の浜で監視役を務めるヴェルドは、沖でサメと力比べを始めた兄ターディスに何度も笛を鳴らす。兄は聞く耳を持たず、暑さに弱かった幼い頃の話まで持ち出して弟を赤面させた。"],
+  ["看守の収穫祭","閑話【秋の監獄演習】","収穫祭の夜も、ヴェルドは囚人の恰好をして脱獄対策の演習に励んでいた。差し入れに来たニースは、お菓子の用意がない彼の装いを魔法で祭り仕様に変えてしまう。和やかに終わるかと思いきや、最後に出てきたのは隊長お手製のお菓子。その後数日、ヴェルドは部屋から出てこなかった。"],
+  ["影の書初め","閑話【とある新年の一幕】","新年、無口なラジョアが黙々と紙と大筆を用意し、見事な筆さばきで書初めを始める。こたつのロシェは面白がって筆を奪いに行き、ディステルは、昔レーヴェンが書初めを気に入っていたことを思い出して、冷めかけた雑煮に箸をつけた。"]]}
+];
 function drawStory(){
   const alias={"6号":"6号（アルトゥラ）"};
   const names=[...nodes.map(n=>n.id),"6号"].sort((a,b)=>b.length-a.length);
@@ -1063,13 +1098,18 @@ function drawStory(){
   const el=document.getElementById("story");
   el.innerHTML=`<div class="st-in">
     <p class="st-lead">パズドラ公式ストーリー『龍と魔の物語』のあらすじです。細部や台詞は、ぜひ<a href="https://pad.gungho.jp/member/story/index.html" target="_blank" rel="noopener">公式ページ</a>でお読みください。</p>
-    <div class="st-nav">${STORY.map((c,i)=>`<button data-i="${i}"><i style="background:${c.c}"></i>${c.k}</button>`).join("")}</div>
+    <div class="st-nav">${STORY.map((c,i)=>`<button data-i="${i}"><i style="background:${c.c}"></i>${c.k}</button>`).join("")}<button data-i="kanwa"><i style="background:var(--gold);border-radius:50%;transform:none"></i>閑話・季節の物語</button></div>
     ${STORY.map((c,i)=>{const seen=new Set();return `<section class="ch" id="ch${i}">
       <span class="ch-dot" style="background:${c.c};color:${c.c}"></span>
       <p class="ch-k" style="color:${c.c}">${c.k}</p><h2>${c.t}</h2><p class="ch-s">${c.s}</p>
       <div class="ch-b">${c.b.map(([h,t])=>`<h4 style="color:${c.c}">${h}</h4><p>${link(t,seen)}</p>`).join("")}</div></section>`;}).join("")}
-    <p class="st-end">2025/07/08更新分（絆の章【信条と持てる全て】）までの内容です。</p></div>`;
-  el.querySelectorAll(".st-nav button").forEach(b=>b.onclick=()=>document.getElementById("ch"+b.dataset.i).scrollIntoView({behavior:calm?"auto":"smooth",block:"start"}));
+    <p class="st-end">本編は2025/07/08更新分（絆の章【信条と持てる全て】）までの内容です。</p>
+    <section class="kw" id="kanwa"><p class="ch-k" style="color:var(--gold)">本編とは別枠</p><h2>閑話・季節の物語</h2>
+      <p class="ch-s">公式の閑話や季節イベントで描かれた小話です。本編の時系列には含めず、ここにまとめています。</p>
+      ${KANWA.map(G=>{const seen=new Set();return `<h3 style="color:${G.c}"><i style="background:${G.c}"></i>${G.g}</h3><p class="kw-n">${G.n}</p>
+        <div class="kw-g">${G.items.map(([t,o,x])=>`<article class="kw-c" style="border-top-color:${G.c}"><h4>${t}</h4><p class="kw-o">公式での題：${esc(o)}</p><p>${link(x,new Set())}</p></article>`).join("")}</div>`;}).join("")}
+    </section></div>`;
+  el.querySelectorAll(".st-nav button").forEach(b=>b.onclick=()=>document.getElementById(b.dataset.i==="kanwa"?"kanwa":"ch"+b.dataset.i).scrollIntoView({behavior:calm?"auto":"smooth",block:"start"}));
   el.onclick=e=>{const t=e.target.closest(".lnk"); if(!t) return; renderChar(t.dataset.id);
     if(window.innerWidth<=860) document.querySelector("aside").scrollIntoView({behavior:calm?"auto":"smooth",block:"start"});};
 }
@@ -1126,7 +1166,7 @@ function renderHome(){
     <h3>見かた</h3>
     <p><b>全体相関図</b>：勢力ごとの枠に主要人物を並べ、物語の軸になる関係だけを線で示しています。カードをタップするとその人の線が強調され、もう一度タップすると下の「人物でたどる」に切り替わります。下の凡例で線の種類を絞り込めます。</p>
     <p><b>人物でたどる</b>：選んだ人物を中心に、直接つながる全員（龍を含む）を放射状に表示。周りの人物どうしにも関係があれば細い曲線で結んでいます。周りの人物をタップすると中心が移ります。</p>
-    <p><b>物語のあらすじ</b>：前史から最新話までを章ごとに短くまとめています。文中の人物名を押すと、この欄に人物紹介が出ます。</p>
+    <p><b>物語のあらすじ</b>：前史から最新話までを章ごとに短くまとめています。末尾には、閑話や季節イベントの小話を本編とは別枠で載せています。文中の人物名を押すと、この欄に人物紹介が出ます。</p>
     <p><b>人物一覧</b>：全${nodes.length}人を勢力別に、紹介文の冒頭と現在の状況つきで一覧にしています。</p><p>どの表示でも、人物を選ぶとこの欄に<b>詳しい人物紹介</b>・いまの状況・関係の一覧が出ます。</p>
   </div>
   <div class="src">※ファンが作成した非公式の相関図です。<br>出典：パズル＆ドラゴンズ公式「Story 龍と魔の物語」<br>
