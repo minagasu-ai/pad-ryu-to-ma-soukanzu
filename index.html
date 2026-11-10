@@ -21,6 +21,7 @@
   --body:"Zen Kaku Gothic New","Hiragino Kaku Gothic ProN","Noto Sans JP","Yu Gothic",system-ui,sans-serif}
 *{box-sizing:border-box}
 html,body{margin:0;height:100%;background:var(--bg);color:var(--ink);font-family:var(--body)}
+body{display:flex;flex-direction:column}
 header{display:flex;flex-wrap:wrap;align-items:center;gap:8px 18px;padding:10px 20px;border-bottom:1px solid var(--line);background:linear-gradient(180deg,#151a27,#0f131c)}
 h1{font-family:var(--display);font-weight:800;font-size:21px;margin:0;letter-spacing:.08em;color:var(--ink)}
 h1::before{content:"";display:inline-block;width:9px;height:9px;margin-right:12px;transform:rotate(45deg) translateY(-2px);background:var(--gold);box-shadow:0 0 12px var(--gold)}
@@ -31,7 +32,7 @@ h1::before{content:"";display:inline-block;width:9px;height:9px;margin-right:12p
 .tabs button:hover{color:var(--ink)}
 .tabs button.on{background:var(--gold);color:#17120a}
 button:focus-visible,.lc:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
-.wrap{display:flex;height:calc(100% - 56px)}
+.wrap{display:flex;flex:1;min-height:0}
 .view{flex:1;position:relative;min-width:0;display:none;
   background:radial-gradient(1200px 700px at 46% 42%,#172036 0%,transparent 70%),radial-gradient(circle,#232b40 1px,transparent 1.4px) 0 0/26px 26px,var(--bg)}
 .view.on{display:block}
@@ -47,6 +48,8 @@ aside{width:400px;border-left:1px solid var(--line);background:var(--panel);over
 .legend span.off{opacity:.3}
 .legend i{width:20px;height:3px;border-radius:2px;display:inline-block}
 .hint{position:absolute;left:14px;top:14px;font-size:12px;color:var(--sub);background:rgba(15,19,28,.88);border:1px solid var(--line);border-radius:8px;padding:6px 11px}
+#v-map .hint{max-width:calc(100% - 150px)}
+#v-focus .hint{top:auto;bottom:14px;max-width:calc(100% - 28px)}
 /* map */
 .box .bt{font-family:var(--display);font-weight:800;font-size:15px;letter-spacing:.06em}
 .card{cursor:pointer;transition:opacity .15s}
@@ -126,6 +129,7 @@ aside h3::after{content:"";flex:1;height:1px;background:var(--line)}
 @media (max-width:860px){
   header{padding:8px 12px} h1{font-size:17px} .meta{display:none} .unoff{font-size:10.5px;padding:1px 6px;white-space:normal}
   .tabs{margin-left:0;width:100%} .tabs button{flex:1;padding:6px 4px;font-size:12px}
+  body{display:block}
   .wrap{flex-direction:column;height:auto}
   .view{height:70vh;flex:none} #list{height:auto}
   #v-list,#v-story{height:auto;overflow:visible}
