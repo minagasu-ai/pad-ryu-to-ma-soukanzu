@@ -128,6 +128,7 @@ aside h3::after{content:"";flex:1;height:1px;background:var(--line)}
   .tabs{margin-left:0;width:100%} .tabs button{flex:1;padding:6px 4px;font-size:12px}
   .wrap{flex-direction:column;height:auto}
   .view{height:70vh;flex:none} #list{height:auto}
+  #v-list,#v-story{height:auto;overflow:visible}
   aside{width:100%;border-left:none;border-top:1px solid var(--line)}
   .legend{display:none}
   .hint{display:none}
@@ -1058,7 +1059,8 @@ function drawStory(){
       <div class="ch-b">${c.b.map(([h,t])=>`<h4 style="color:${c.c}">${h}</h4><p>${link(t,seen)}</p>`).join("")}</div></section>`;}).join("")}
     <p class="st-end">2025/07/08更新分（絆の章【信条と持てる全て】）までの内容です。</p></div>`;
   el.querySelectorAll(".st-nav button").forEach(b=>b.onclick=()=>document.getElementById("ch"+b.dataset.i).scrollIntoView({behavior:calm?"auto":"smooth",block:"start"}));
-  el.onclick=e=>{const t=e.target.closest(".lnk"); if(t) renderChar(t.dataset.id);};
+  el.onclick=e=>{const t=e.target.closest(".lnk"); if(!t) return; renderChar(t.dataset.id);
+    if(window.innerWidth<=860) document.querySelector("aside").scrollIntoView({behavior:calm?"auto":"smooth",block:"start"});};
 }
 
 // ===== 人物一覧 =====
