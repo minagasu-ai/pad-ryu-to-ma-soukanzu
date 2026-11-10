@@ -24,6 +24,7 @@ html,body{margin:0;height:100%;background:var(--bg);color:var(--ink);font-family
 header{display:flex;flex-wrap:wrap;align-items:center;gap:8px 18px;padding:10px 20px;border-bottom:1px solid var(--line);background:linear-gradient(180deg,#151a27,#0f131c)}
 h1{font-family:var(--display);font-weight:800;font-size:21px;margin:0;letter-spacing:.08em;color:var(--ink)}
 h1::before{content:"";display:inline-block;width:9px;height:9px;margin-right:12px;transform:rotate(45deg) translateY(-2px);background:var(--gold);box-shadow:0 0 12px var(--gold)}
+.unoff{font-size:11.5px;font-weight:700;letter-spacing:.06em;color:var(--gold);border:1px solid var(--gold);border-radius:4px;padding:2px 8px;white-space:nowrap}
 .meta{font-size:11.5px;color:var(--sub);letter-spacing:.04em}
 .tabs{display:flex;gap:2px;margin-left:auto;background:#0b0e15;padding:3px;border-radius:10px;border:1px solid var(--line)}
 .tabs button{font:inherit;font-size:13px;font-weight:700;border:0;background:transparent;padding:6px 16px;border-radius:7px;cursor:pointer;color:var(--sub);letter-spacing:.04em}
@@ -87,6 +88,27 @@ aside h3::after{content:"";flex:1;height:1px;background:var(--line)}
 .sum li::marker{color:var(--gold)}
 .src{font-size:11.5px;color:var(--sub);line-height:1.7;margin-top:22px}
 .src a{color:var(--gold)}
+/* story */
+#story{overflow:auto;height:100%;padding:26px 28px 60px;scroll-behavior:smooth}
+.st-in{max-width:760px;margin:0 auto}
+.st-lead{font-size:13px;line-height:1.85;color:var(--sub);margin:0 0 14px}
+.st-lead a{color:var(--gold);font-weight:700;text-underline-offset:3px}
+.st-nav{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 30px}
+.st-nav button{font:inherit;font-size:12.5px;font-weight:700;padding:6px 13px;border-radius:999px;border:1px solid var(--line);background:var(--card);color:var(--ink);cursor:pointer;display:inline-flex;align-items:center;gap:7px}
+.st-nav button:hover{border-color:var(--gold)}
+.st-nav i,.ch-h i{width:8px;height:8px;transform:rotate(45deg);display:inline-block;flex:none}
+.ch{position:relative;padding:0 0 34px 34px;border-left:1px solid var(--line);margin-left:8px}
+.ch:last-child{border-left-color:transparent}
+.ch-dot{position:absolute;left:-8px;top:4px;width:15px;height:15px;transform:rotate(45deg);border:2px solid var(--bg);box-shadow:0 0 14px currentColor}
+.ch-k{font-size:11.5px;font-weight:700;letter-spacing:.16em;margin:0 0 3px}
+.ch h2{font-family:var(--display);font-size:23px;margin:0 0 6px;letter-spacing:.05em;text-wrap:balance}
+.ch-s{font-size:13.5px;color:#e3c88a;margin:0 0 14px;line-height:1.7}
+.ch-b{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:16px 20px 8px}
+.ch-b h4{font-size:12.5px;margin:0 0 4px;color:var(--ink);letter-spacing:.06em;display:flex;align-items:center;gap:8px}
+.ch-b h4::before{content:"";width:14px;height:1px;background:currentColor;opacity:.6}
+.ch-b p{font-size:14px;line-height:1.95;margin:0 0 14px;color:#d9dbe2;text-align:justify}
+.st-end{font-size:12px;color:var(--sub);line-height:1.8;margin:6px 0 0 42px}
+@media (max-width:860px){#story{padding:18px 14px 40px;height:auto}.ch{padding-left:22px}.st-end{margin-left:30px}}
 /* list */
 #list{overflow:auto;padding:20px 24px 40px;height:100%}
 .fsec{margin-bottom:26px}
@@ -102,7 +124,7 @@ aside h3::after{content:"";flex:1;height:1px;background:var(--line)}
 .lc .st{color:#e3c88a}
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
 @media (max-width:860px){
-  header{padding:8px 12px} h1{font-size:17px} .meta{display:none}
+  header{padding:8px 12px} h1{font-size:17px} .meta{display:none} .unoff{font-size:10.5px;padding:1px 6px;white-space:normal}
   .tabs{margin-left:0;width:100%} .tabs button{flex:1;padding:6px 4px;font-size:12px}
   .wrap{flex-direction:column;height:auto}
   .view{height:70vh;flex:none} #list{height:auto}
@@ -115,8 +137,9 @@ aside h3::after{content:"";flex:1;height:1px;background:var(--line)}
 <body>
 <header>
   <h1>『龍と魔の物語』相関図</h1>
-  <div class="meta">公式ストーリー全章／絆の章【信条と持てる全て】（2025/07/08更新分）時点</div>
-  <div class="tabs"><button data-v="map" class="on">全体相関図</button><button data-v="focus">人物でたどる</button><button data-v="list">人物一覧</button></div>
+  <span class="unoff">パズドラファン有志により作成された非公式データです</span>
+  <div class="meta">パズドラ公式とは無関係の、ファンによるまとめです。公式ストーリー全章／絆の章【信条と持てる全て】（2025/07/08更新分）時点</div>
+  <div class="tabs"><button data-v="map" class="on">全体相関図</button><button data-v="focus">人物でたどる</button><button data-v="list">人物一覧</button><button data-v="story">物語のあらすじ</button></div>
 </header>
 <div class="wrap">
   <div class="view on" id="v-map">
@@ -131,6 +154,7 @@ aside h3::after{content:"";flex:1;height:1px;background:var(--line)}
     <div class="tools"><button class="btn on" id="fPeer">周りの人物どうしの線</button><button class="btn on" id="fDr">龍も表示</button><button class="btn" id="fBack">← 戻る</button></div>
   </div>
   <div class="view" id="v-list"><div id="list"></div></div>
+  <div class="view" id="v-story"><div id="story"></div></div>
   <aside id="panel"></aside>
 </div>
 <script>
@@ -883,6 +907,7 @@ function fitMap(){
   svg.call(zoom.transform,d3.zoomIdentity.translate((r.width-1935*k)/2,Math.max(40,(r.height-1282*k)/2-6)).scale(k));
 }
 document.getElementById("fitBtn").onclick=fitMap;
+const calm=window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
 // ===== 人物でたどる =====
 const fsvg=d3.select("#focus"), froot=fsvg.append("g");
@@ -986,6 +1011,56 @@ function drawFocus(){
   document.getElementById("fBack").style.visibility=history.length?"visible":"hidden";
 }
 
+
+
+// ===== 物語のあらすじ（公式の文章は使わず、章ごとに要約） =====
+const STORY=[
+ {k:"前史",t:"すべての始まり",c:"#d8b25a",s:"共存を夢見た青年が、世界の敵として封じられるまで。",b:[
+  ["共存の夢と禁忌の書","人と龍が争っていた遠い昔、龍に魅せられた青年レーヴェンは、両者が並んで暮らせる世界を求めて旅に出た。双頭の雷龍と契約した彼のもとに、学者肌のリクウ、悪魔の血が混じるディステル、快活なプラリネが集う。やがてリクウとディステルは、世界そのものを組み替えられる魔導書の理論を作り上げた。リクウは危険すぎると手を引いたが、レーヴェンとディステルは実行へ進む。"],
+  ["封印","世界の均衡を守る龍王たちと龍喚士は、これを継界への脅威とみなした。レーヴェンは雷龍との契約を断ち切られ、ミルらの手で異空間に閉じ込められる。雷龍は二体に分けられ、彼の故郷の両端に鎖でつながれた。仲間たちは散り散りになる。"],
+  ["巫女との出会いと双子の誕生","数百年後、悪魔ダンタリオンが面白半分に手を貸し、レーヴェンは自分の影を器にして外の世界へ戻る。故郷で出会ったのが、雷龍の封印を見守る巫女リーベだった。情報を得るつもりで近づいた二人は、いつしか想い合うようになる。それを知った龍王たちが彼女を除こうとしたため、レーヴェンは残っていた雷龍の力を彼女に移して守り、力尽きて再び眠りについた。その力はリーベに宿っていた命へ流れ込み、ティフォンとガディウスの双子が生まれる。父は息子たちの存在を知らないままだった。"],
+  ["憎しみへ","理想も愛する人との時間も龍に奪われたレーヴェンの願いは、龍のいない世界を創ることへ変わっていく。彼は影ラジョアを通じて、創造を担うイルムと破壊を担うズオーという二体の悪魔を生み出し、龍を憎む者たちを集め始めた。"]]},
+ {k:"黒の章",t:"故郷の滅亡と旅立ち",c:"#7f8db0",s:"双子が龍契士となり、黒の悪魔との決戦で行方を絶つまで。",b:[
+  ["二体の悪魔の襲来","いくつもの世界を荒らしてきたイルムとズオーは、転界で龍喚士たちを封じ、あるいは操って手駒にしたうえで、継界の中心に姿を現す。双子の故郷は滅ぼされ、立ち向かったガディウスは瀕死の傷を負った。兄ティフォンは弟を救うために滅雷龍ドルヴァと契約して脱出し、悪魔を討つ旅に出る。回復したガディウスも、兄を超える力を求めて浄雷龍セディンと契約し、後を追った。"],
+  ["転界の龍喚士たち","ティフォンはアーミルの館で、封じられていたツバキ、スミレ、カエデを解き放ち、加護を授かる。ガディウスは操られていたカンナとサツキを正気に戻し、龍との結びつきを強めてもらった。"],
+  ["巻き込まれる龍契士たち","同じ頃、サリアの友である機械の神デウス＝エクス＝マキナがズオーに敗れて半壊する。イルムはその核を握り、サリアを魔導書づくりに協力させた。退屈を嫌う風龍王リンシアはイルムの誘いに乗って姿を消し、育てられたシルヴィが連れ戻しに向かう。海龍王のもとで育ったリューネも、育ての親を守るために戦いへ踏み出した。"],
+  ["試練、そして三つ巴","悪魔の配下スカーレットとインディゴに追い詰められた兄弟は、機操士たちに助けられ、それぞれ龍王の試練に挑む。ティフォンは龍と認め合って力を得たが、ガディウスは自分の魂を半ばまで龍に明け渡す道を選んだ。故郷でのティフォンとズオーの決戦に、龍に意識を奪われたガディウスが乱入する。三つの力の衝突が空間を裂き、三人とも次元の狭間へ呑み込まれた。"]]},
+ {k:"白の章",t:"弟の救出と魔導書の影",c:"#cfd8e6",s:"狭間からの帰還、龍王の試練、そして天城での兄弟の再会。",b:[
+  ["書庫の小さな反逆","イルムは集めた魔力で、完全なる魔導書に必要な三冊のうち二冊を仕上げる。一方、出来損ないとして放っておかれたイルミナは、居場所のないサリアに魔導書を手渡し、ダンタリオンの人形メルが持ち込んだ廃棄本を書き換えた。これで自由になった魔導姫たちが、のちに主人公側を助けることになる。"],
+  ["狭間からの帰還","ズオーの娘ロミアはメルに導かれて狭間で父を見つけ、魔力を分け与えて復活させる。ティフォンはツバキたちとミルの力で救い出され、弟を元に戻す手がかりとして、魂を本来の姿へ還す力を持つリューネを探し始めた。ガディウスは死神グリーダとの勝負に勝って帰還するが、天城でイルムの魔導を受け、龍に呑まれて暴れ出す。"],
+  ["それぞれの試練","サリアは騎龍王の試練で、友の翼と盾を得る。シルヴィはリンシアと刃を交えて本心を知り、イルムの背後に黒幕がいること、その狙いが龍という種を消し去ることだと知らされた。リューネは紅葉山の隠者リクウから力の意味を教わり、幻龍王の試練を越える。"],
+  ["天城の再会","魔導姫の鍵で天城へ乗り込んだティフォンが弟を押さえ、リューネが歪んだ契約を解く。目覚めたガディウスは、今度は自分の意志でセディンと契約を結び直した。しかしイルムは、この暴走と解除と再契約の一部始終を観察していた。残る一冊「龍の書」に必要なものを見定めると、一同を転移の術でばらばらに飛ばしてしまう。"]]},
+ {k:"龍の章",t:"龍を狩る者たちと黒幕の正体",c:"#e0356f",s:"龍覚印の争奪、旧友たちの再会、そして魔導書の完成へ。",b:[
+  ["奪われた龍覚印","龍を憎みながら龍と契約した五人、キリ、ターディス、クーリア、リィ、6号が伝説の地を襲い、強大な龍を制御する龍覚印を奪っていく。ソニア＝グラン直属部隊が奪還に動くが、追う側と追われる側には因縁があった。ヴェルドとターディスは兄弟、ラシオスとリィの龍ガランダスは元相棒、シャゼルはクーリアの龍モルムのかつての主。そしてイデアルは、記憶を封じられたまま、我が子同然の6号を討てと命じられる。"],
+  ["小さな旅の道連れ","ティフォンは、記憶をなくして怯えるリィを保護する。龍を見ると我を失う呪いをかけられた彼女を、ガランダスは影の中から守り続けていた。追ってきたラシオスとの衝突のなかで、かつての相棒どうしの誤解が解けていく。"],
+  ["旧友たちの再会","リューネとニースが訪ねたリクウは、魔導書の理論を作ったのが自分とディステルだと打ち明ける。そこへ当のディステルが現れ、リューネの還爪の力を奪い去った。彼の望みは、封じられたレーヴェンを連れ戻すこと。聖域ではミルが襲われて魔力を奪われ、さらにロミアが、あらゆる空間を開く一族の生き残りだと判明する。ディステルとラジョアは彼女を攫い、ズオーは娘を取り戻すためにリクウと手を組んだ。"],
+  ["天城に集う者たち","プラリネは時空の魔術師ウィジャスから預かった白紙の書をイルミナに届け、対抗手段となる「神の書」づくりが始まる。その後プラリネは、黒幕の側についた親友ロシェと向き合い、長いすれ違いの末に手を取り合った。スオウは龍王から託された龍玉をリューネとシルヴィに渡し、ティフォンには、戦いの黒幕が父であることを告げる。"],
+  ["大広間の決戦","直属部隊と龍を狩る集団がぶつかり合う。ラシオスの叱咤とティフォン、リューネの力でリィは呪いから解き放たれた。キリはティフォンの言葉に復讐心を揺さぶられ、直後に彼を庇ってラジョアの一撃に倒れる。その裏でイルムは「龍の書」を書き上げていた。"]]},
+ {k:"絆の章",t:"レーヴェンの帰還と龍の消失",c:"#ff6fb5",s:"黒幕が戻り、世界から龍が消える。物語は現在ここまで。",b:[
+  ["帰還","三冊がひとつになり、完全なる魔導書が完成する。ロミアの力で異空間が開かれ、6号の魔力でその穴が固定されて、レーヴェンが継界に戻ってきた。かつての契約龍に願いを問われた彼の答えは、今の世界を壊し、龍のいない世界として創り直すことだった。"],
+  ["母と子、悪魔と娘","力を搾り取られて暴走した6号を、記憶のないままのイデアルが身を挺して庇う。すべてを思い出した6号は、今度こそ母を守るという願いで龍と正しく契約を結んだ。イルミナとロミアは手を重ねて神の書を発動させ、魔導書の一部を打ち消す。創造主に背いたズオーは対の存在イルムを討ち、イルムは最期に、自分にも願いがあったことを悟った。大広間では、ヴェルドが兄に初めて勝ち、クーリアは龍モルムの本心を知る。"],
+  ["切り捨てと敗走","レーヴェンは、誰よりも自分を慕ってきたディステルを龍もろとも砕き、奪わせていた還爪の力を取り上げる。その力で、その場の全員の龍との契約を断ち、召喚も封じた。鬼の姿に戻ったスオウの一太刀で退いたものの、去り際の黒雷で天城は崩れ落ちる。一同は転界の龍喚士たちの結界に守られて生き延び、ヴァレリアの屋敷へ逃れた。"],
+  ["龍の消えた世界","再び封印しようと聖域へ向かった龍王たちは、聖域からあふれ出た影に呑まれる。影は継界全土に広がり、すべての龍が姿を消した。均衡を失った世界では天変地異が続く。しかも術はまだ途中で、人々の記憶からも龍が少しずつ抜け落ちていく。ラシオスは戦友の名を、リィは花冠を贈った相手を思い出せなくなった。細工師チュアンにも術は解けず、望みをかけたイデアルの「繋ぐ」石の調査も止まってしまう。"],
+  ["それでも","力を縛られていないズオーたち悪魔は、ロミアを連れて聖域へ向かう。気まぐれなダンタリオンも軍勢を率いて加わった。ズオーに願いを捨てられるのかと問われたティフォンは、怯える弟を前に、力がなくても抗い続けると決める。医師ハイレンは信条を曲げて神の力で重傷者の命を繋ぎ、家族を失って立ち尽くすスオウに、次にどうするのかを問いかけた。"]]}
+];
+function drawStory(){
+  const alias={"6号":"6号（アルトゥラ）"};
+  const names=[...nodes.map(n=>n.id),"6号"].sort((a,b)=>b.length-a.length);
+  const re=new RegExp(names.map(x=>x.replace(/[.*+?^${}()|[\]\\]/g,"\\$&")).join("|"),"g");
+  const link=(t,seen)=>esc(t).replace(re,m=>{const id=alias[m]||m; if(seen.has(id)) return m; seen.add(id); return `<span class="lnk" data-id="${id}">${m}</span>`;});
+  const el=document.getElementById("story");
+  el.innerHTML=`<div class="st-in">
+    <p class="st-lead">パズドラ公式ストーリー『龍と魔の物語』のあらすじです。細部や台詞は、ぜひ<a href="https://pad.gungho.jp/member/story/index.html" target="_blank" rel="noopener">公式ページ</a>でお読みください。</p>
+    <div class="st-nav">${STORY.map((c,i)=>`<button data-i="${i}"><i style="background:${c.c}"></i>${c.k}</button>`).join("")}</div>
+    ${STORY.map((c,i)=>{const seen=new Set();return `<section class="ch" id="ch${i}">
+      <span class="ch-dot" style="background:${c.c};color:${c.c}"></span>
+      <p class="ch-k" style="color:${c.c}">${c.k}</p><h2>${c.t}</h2><p class="ch-s">${c.s}</p>
+      <div class="ch-b">${c.b.map(([h,t])=>`<h4 style="color:${c.c}">${h}</h4><p>${link(t,seen)}</p>`).join("")}</div></section>`;}).join("")}
+    <p class="st-end">2025/07/08更新分（絆の章【信条と持てる全て】）までの内容です。</p></div>`;
+  el.querySelectorAll(".st-nav button").forEach(b=>b.onclick=()=>document.getElementById("ch"+b.dataset.i).scrollIntoView({behavior:calm?"auto":"smooth",block:"start"}));
+  el.onclick=e=>{const t=e.target.closest(".lnk"); if(t) renderChar(t.dataset.id);};
+}
+
 // ===== 人物一覧 =====
 function drawList(){
   const groups={}; nodes.forEach(n=>(groups[n.f]=groups[n.f]||[]).push(n));
@@ -1038,6 +1113,7 @@ function renderHome(){
     <h3>見かた</h3>
     <p><b>全体相関図</b>：勢力ごとの枠に主要人物を並べ、物語の軸になる関係だけを線で示しています。カードをタップするとその人の線が強調され、もう一度タップすると下の「人物でたどる」に切り替わります。下の凡例で線の種類を絞り込めます。</p>
     <p><b>人物でたどる</b>：選んだ人物を中心に、直接つながる全員（龍を含む）を放射状に表示。周りの人物どうしにも関係があれば細い曲線で結んでいます。周りの人物をタップすると中心が移ります。</p>
+    <p><b>物語のあらすじ</b>：前史から最新話までを章ごとに短くまとめています。文中の人物名を押すと、この欄に人物紹介が出ます。</p>
     <p><b>人物一覧</b>：全${nodes.length}人を勢力別に、紹介文の冒頭と現在の状況つきで一覧にしています。</p><p>どの表示でも、人物を選ぶとこの欄に<b>詳しい人物紹介</b>・いまの状況・関係の一覧が出ます。</p>
   </div>
   <div class="src">※ファンが作成した非公式の相関図です。<br>出典：パズル＆ドラゴンズ公式「Story 龍と魔の物語」<br>
@@ -1055,7 +1131,7 @@ function show(v){
   if(v==="focus") requestAnimationFrame(drawFocus);
 }
 document.querySelectorAll(".tabs button").forEach(b=>b.onclick=()=>{show(b.dataset.v); if(b.dataset.v==="focus") renderChar(fCenter); else if(b.dataset.v==="map"){ if(!mapSel) renderHome(); }});
-drawList(); renderHome(); applyMap(); requestAnimationFrame(fitMap);
+drawList(); drawStory(); renderHome(); applyMap(); requestAnimationFrame(fitMap);
 window.addEventListener("resize",()=>{ if(cur==="map") fitMap(); else if(cur==="focus") drawFocus(); });
 </script>
 </body>
