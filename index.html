@@ -1171,7 +1171,7 @@ function secretOpen(i){
   const back=`<div class="back"><button onclick="${i==null?"secretClose()":"secretOpen()"}">${i==null?"← 相関図へ戻る":"← 目次へ"}</button></div>`;
   if(i==null){
     box.innerHTML=back+`<h2>自認ユキアカネちゃんの<br><em>創作小説コーナー</em></h2>
-      <div class="lead">狐龍ユキアカネの目線で書いた、二次創作小説です。全ては龍王とおじゃる丸無き世界のために</div>
+      <div class="lead">よくここがわかりましたね<br>狐龍ユキアカネの目線で書いた、二次創作小説置き場です。<br>龍王が悪いよ龍王が―。おじゃる丸と同程度に悪い。</div>
       <div class="toc">${SECRET.map((n,k)=>`<a onclick="secretOpen(${k})"><i>其ノ${num[k]}</i><b>${esc(n.t)}</b><span>${esc(n.s)}</span></a>`).join("")}</div>
       <div class="fin">※公式の物語は、ぜひ<a href="https://pad.gungho.jp/member/story/index.html" style="color:var(--cyan)">パズドラ公式ストーリーのページ</a>でお読みください。</div>`;
   }else{
