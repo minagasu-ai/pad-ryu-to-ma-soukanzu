@@ -86,6 +86,9 @@ aside h3::after{content:"";flex:1;height:1px;background:var(--line)}
 .rel a,.lnk{font-weight:700;cursor:pointer;color:var(--ink);text-decoration:underline;text-decoration-color:#55607a;text-underline-offset:3px}
 .rel a:hover,.lnk:hover{text-decoration-color:var(--gold)}
 .sub{font-size:12.5px;line-height:1.6;color:var(--sub)}
+.since{margin-top:8px;font-size:12.5px;color:var(--sub);letter-spacing:.04em}
+.since b{font-family:"Shippori Mincho B1",serif;font-size:22px;color:var(--gold);margin:0 4px;font-variant-numeric:tabular-nums}
+.since:empty{display:none}
 .sum p,.sum li{font-size:13px;line-height:1.85;color:#d9dbe2}
 .sum b{color:var(--ink)}
 .sum ul{padding-left:18px;margin:4px 0}
@@ -189,6 +192,7 @@ aside h3::after{content:"";flex:1;height:1px;background:var(--line)}
   <h1>『龍と魔の物語』相関図</h1>
   <span class="unoff">パズドラファン有志により作成された非公式データです</span>
   <div class="meta">パズドラ公式とは無関係の、ファンによるまとめです。公式ストーリー全章／絆の章【信条と持てる全て】（2025/07/08更新分）時点</div>
+  <div class="since" id="since" aria-live="off"></div>
   <div class="tabs"><button data-v="map" class="on">全体相関図</button><button data-v="focus">人物でたどる</button><button data-v="list">人物一覧</button><button data-v="story">物語のあらすじ</button></div>
 </header>
 <div class="wrap">
@@ -1209,6 +1213,18 @@ function renderChar(id){
     ${id==="ユキアカネ"?`<div class="himitsu"><a onclick="secretOpen()">秘密の部屋</a></div>`:""}`;
   panel.scrollTop=0;
 }
+// ===== 公式ストーリー前回更新日からの経過日数（日本時間で数える。更新があったらこの日付を書き換える） =====
+const LAST_UPDATE="2025-07-08";
+function sinceUpdate(){
+  const el=document.getElementById("since"); if(!el) return;
+  const jst=new Date(Date.now()+9*3600*1000);
+  const today=Date.UTC(jst.getUTCFullYear(),jst.getUTCMonth(),jst.getUTCDate());
+  const [y,m,d]=LAST_UPDATE.split("-").map(Number);
+  const days=Math.round((today-Date.UTC(y,m-1,d))/86400000);
+  if(!(days>=0)){el.textContent="";return;}
+  el.innerHTML=`公式ストーリーの前回更新（${y}/${String(m).padStart(2,"0")}/${String(d).padStart(2,"0")}）から<b>${days.toLocaleString("ja-JP")}</b>日`;
+}
+sinceUpdate(); setInterval(sinceUpdate,10*60*1000);
 function renderHome(){
   panel.innerHTML=`<div class="sum">
     <h3 style="margin-top:4px">物語のいま（絆の章）</h3>
