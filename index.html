@@ -1183,11 +1183,22 @@ const SECRET = [{"t":"緋ノ瞳、黒キ鳶","s":"クロトビとの出会いと
 /* ===== 来訪カウンター（外部の簡易カウンターAbacusを利用／同じ端末は1日1回まで）===== */
 const CNT={base:"https://abacus.jasoncameron.dev",ns:"minagasu-ryu-ma-soukanzu",since:"2026/11/22"};
 function jstDay(){const d=new Date(Date.now()+9*3600e3);return d.toISOString().slice(0,10).replace(/-/g,"")}
+const cLog=[];
+async function cReq(op,key){
+  const r=await fetch(`${CNT.base}/${op}/${CNT.ns}/${key}`);
+  cLog.push(op+" "+r.status);
+  if(!r.ok) return {st:r.status};
+  const j=await r.json(); return {st:r.status,v:Number.isFinite(+j.value)?+j.value:null};
+}
 async function cApi(op,key){
-  try{const r=await fetch(`${CNT.base}/${op}/${CNT.ns}/${key}`);
-    if(r.status===404) return 0; if(!r.ok) return null;
-    const j=await r.json(); return Number.isFinite(+j.value)?+j.value:null;
-  }catch(e){return null}
+  try{
+    let r=await cReq(op,key);
+    if(r.st===404){
+      if(op==="get") return 0;
+      await cReq("create",key+"?initializer=0"); r=await cReq(op,key);   // 初回だけ作成してから数える
+    }
+    return r.v===undefined?null:r.v;
+  }catch(e){cLog.push(op+" "+(e&&e.message||"error")); return null}
 }
 const cOnceP={};
 function cOnce(kind){
@@ -1198,14 +1209,14 @@ function cOnce(kind){
     ok=!localStorage.getItem("cnt-off") && localStorage.getItem("cnt-"+kind)!==day;
     if(ok) localStorage.setItem("cnt-"+kind,day);
   }catch(e){ok=false}
-  return cOnceP[kind]= ok ? Promise.all([cApi("hit",`${kind}-d-${day}`),cApi("hit",`${kind}-all`)]) : Promise.resolve();
+  return cOnceP[kind]= ok ? Promise.all([cApi("hit",`${kind}-d-${day}`),cApi("hit",`${kind}-all`)]).then(r=>{ if(r.some(v=>v===null)){try{localStorage.removeItem("cnt-"+kind)}catch(e){}} return r; }) : Promise.resolve();
 }
 async function cntRender(){
   const box=document.getElementById("cntBox"); if(!box) return;
   await Promise.all([cOnce("site"),cOnce("room")]);
   const day=jstDay();
   const [sd,sa,rd,ra]=await Promise.all([cApi("get",`site-d-${day}`),cApi("get",`site-all`),cApi("get",`room-d-${day}`),cApi("get",`room-all`)]);
-  if([sd,sa,rd,ra].every(v=>v===null)){box.remove();return}
+  if([sd,sa,rd,ra].every(v=>v===null)){box.innerHTML=`カウンターにつながりませんでした。時間をおいて開き直してみてください。<br><span style="opacity:.6">（${esc([...new Set(cLog)].slice(0,4).join(" / ")||"応答なし")}）</span>`;return}
   const f=v=>v===null?"―":v.toLocaleString("ja-JP");
   const el=document.getElementById("cntBox"); if(!el) return;
   el.innerHTML=`このサイトに来た人　本日 <b>${f(sd)}</b> 人／累計 <b>${f(sa)}</b> 人<br>この部屋まで来た人　本日 <b>${f(rd)}</b> 人／累計 <b>${f(ra)}</b> 人<br><span style="opacity:.7">※${CNT.since}から集計。同じ端末は1日1回まで数えています。</span>`;
