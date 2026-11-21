@@ -184,7 +184,14 @@ aside h3::after{content:"";flex:1;height:1px;background:var(--line)}
   aside{width:100%;border-left:none;border-top:1px solid var(--line)}
   .legend{display:none}
   .hint{display:none}
+  #v-focus,#v-map{height:62vh}
+  #peek{position:fixed;left:10px;right:10px;bottom:10px;z-index:30;display:none;align-items:center;gap:10px;padding:10px 14px;border-radius:12px;background:rgba(20,26,40,.96);border:1px solid var(--gold);color:var(--ink);font-size:14px;box-shadow:0 6px 22px rgba(0,0,0,.55);cursor:pointer;font-family:var(--display)}
+  #peek b{color:var(--gold);flex:none}
+  #peek span{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:12.5px;color:var(--sub);font-family:inherit}
+  #peek i{font-style:normal;color:var(--gold);flex:none}
+  #peek.on{display:flex}
 }
+#peek{display:none}
 </style>
 </head>
 <body>
@@ -198,7 +205,7 @@ aside h3::after{content:"";flex:1;height:1px;background:var(--line)}
 <div class="wrap">
   <div class="view on" id="v-map">
     <svg class="map" id="map"></svg>
-    <div class="hint">カードに触れると関係を強調。タップで固定、もう一度で「人物でたどる」へ</div>
+    <div class="hint">カードをタップすると、その人物を中心にした相関図に切り替わります（マウスを乗せると関係を強調）</div>
     <div class="tools"><button class="btn" id="fitBtn">全体を表示</button></div>
     <div class="legend" id="legend"></div>
   </div>
@@ -211,6 +218,7 @@ aside h3::after{content:"";flex:1;height:1px;background:var(--line)}
   <div class="view" id="v-story"><div id="story"></div></div>
   <aside id="panel"></aside>
 </div>
+<div id="peek" role="button" tabindex="0"><b id="peekN"></b><span>の紹介を読む</span><i>▼</i></div>
 <script>
 const N = [
 // 龍契士
@@ -898,7 +906,7 @@ eLab.each(function(d){
 const cards=cardG.selectAll("g").data(Object.keys(P).filter(k=>byId[k])).join("g")
   .attr("class",id=>"card"+(P[id][5]?" mini":"")+(byId[id].dead?" dead":""))
   .attr("transform",id=>`translate(${P[id][0]},${P[id][1]})`)
-  .on("click",(e,id)=>{e.stopPropagation(); if(mapSel===id){openFocus(id);} else {mapSel=id;applyMap();renderChar(id);} })
+  .on("click",(e,id)=>{e.stopPropagation(); mapSel=null; applyMap(); openFocus(id); })
   .on("mouseenter",(e,id)=>{ if(!mapSel) applyMap(id); }).on("mouseleave",()=>{ if(!mapSel) applyMap(); });
 cards.each(function(id){
   const g=d3.select(this),p=P[id],mini=p[5],big=id==="レーヴェン";
@@ -1248,7 +1256,7 @@ function renderHome(){
       <li><b>龍覚印</b>：強大な龍を制御する術印。「龍の書」の材料として奪われた。<b>還爪</b>：魂をあるべき姿へ還すリューネの力。</li>
     </ul>
     <h3>見かた</h3>
-    <p><b>全体相関図</b>：勢力ごとの枠に主要人物を並べ、物語の軸になる関係だけを線で示しています。カードをタップするとその人の線が強調され、もう一度タップすると下の「人物でたどる」に切り替わります。下の凡例で線の種類を絞り込めます。</p>
+    <p><b>全体相関図</b>：勢力ごとの枠に主要人物を並べ、物語の軸になる関係だけを線で示しています。カードをタップすると、その人物を中心にした相関図（「人物でたどる」）に切り替わります。全体図に戻るときは上の「全体相関図」タブを押してください。マウスを乗せるだけなら、その人の線が強調されます。下の凡例で線の種類を絞り込めます。</p>
     <p><b>人物でたどる</b>：選んだ人物を中心に、直接つながる全員（龍を含む）を放射状に表示。周りの人物どうしにも関係があれば細い曲線で結んでいます。周りの人物をタップすると中心が移ります。</p>
     <p><b>物語のあらすじ</b>：前史から最新話までを章ごとに短くまとめています。末尾には、閑話や季節イベントの小話を本編とは別枠で載せています。文中の人物名を押すと、この欄に人物紹介が出ます。</p>
     <p><b>人物一覧</b>：全${nodes.length}人を勢力別に、紹介文の冒頭と現在の状況つきで一覧にしています。</p><p>どの表示でも、人物を選ぶとこの欄に<b>詳しい人物紹介</b>・いまの状況・関係の一覧が出ます。</p>
@@ -1270,6 +1278,20 @@ function show(v){
 }
 document.querySelectorAll(".tabs button").forEach(b=>b.onclick=()=>{show(b.dataset.v); if(b.dataset.v==="focus") renderChar(fCenter); else if(b.dataset.v==="map"){ if(!mapSel) renderHome(); }});
 drawList(); drawStory(); renderHome(); applyMap(); requestAnimationFrame(fitMap);
+const peek=document.getElementById("peek"), panelEl=document.getElementById("panel");
+let panelSeen=false;
+function peekUpdate(){
+  const mob=window.matchMedia("(max-width:860px)").matches;
+  const ok=mob&&cur==="focus"&&fCenter&&!panelSeen;
+  peek.classList.toggle("on",!!ok);
+  if(ok) document.getElementById("peekN").textContent=fCenter;
+}
+new IntersectionObserver(es=>{ panelSeen=es[0].isIntersecting; peekUpdate(); },{threshold:0,rootMargin:"0px 0px -45% 0px"}).observe(panelEl);
+peek.onclick=()=>panelEl.scrollIntoView({behavior:"smooth",block:"start"});
+peek.onkeydown=e=>{ if(e.key==="Enter"||e.key===" "){e.preventDefault();peek.onclick();} };
+const _show=show; show=function(v){ _show(v); peekUpdate(); };
+const _renderChar=renderChar; renderChar=function(id){ _renderChar(id); peekUpdate(); };
+window.addEventListener("resize",peekUpdate);
 window.addEventListener("resize",()=>{ if(cur==="map") fitMap(); else if(cur==="focus") drawFocus(); });
 </script>
 </body>
