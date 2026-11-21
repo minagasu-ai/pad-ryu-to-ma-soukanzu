@@ -126,8 +126,12 @@ aside h3::after{content:"";flex:1;height:1px;background:var(--line)}
 #secret .nav{display:flex;justify-content:space-between;gap:10px;margin-top:46px;border-top:1px solid var(--line);padding-top:18px}
 #secret .nav a{color:var(--cyan);cursor:pointer;font-size:13px;text-decoration:none;max-width:48%}
 #secret .nav a:hover{color:var(--gold)}
-#secret .cnt{margin-top:38px;padding-top:12px;border-top:1px dashed var(--line);font-size:10.5px;line-height:1.9;color:var(--sub);opacity:.85;letter-spacing:.03em}
-#secret .cnt b{color:var(--ink);font-weight:500;font-variant-numeric:tabular-nums}
+#secret .cnt{margin-top:38px;padding:14px 0 6px;font-size:10.5px;line-height:1.9;color:#0b0e15;letter-spacing:.03em;cursor:default;-webkit-user-select:text;user-select:text;-webkit-tap-highlight-color:transparent}
+#secret .cnt b{color:inherit;font-weight:500;font-variant-numeric:tabular-nums}
+#secret .cnt span{opacity:1!important}
+#secret .cnt::selection,#secret .cnt *::selection{background:#2a3350;color:#e3c88a}
+#secret .cnt.show{color:var(--sub)}
+#secret .cnt.show b{color:var(--ink)}
 #secret .fin{font-size:11.5px;color:var(--sub);line-height:1.8;margin-top:30px}
 .src{font-size:11.5px;color:var(--sub);line-height:1.7;margin-top:22px}
 .src a{color:var(--gold)}
@@ -1197,6 +1201,7 @@ async function cApi(op,key){
     return r.v===undefined?null:r.v;
   }catch(e){cLog.push(op+" "+(e&&e.message||"error")); return null}
 }
+document.addEventListener("click",e=>{const c=e.target.closest&&e.target.closest("#secret .cnt"); if(c&&!String(getSelection()))c.classList.toggle("show")});
 const cOnceP={};
 function cOnce(kind){
   if(cOnceP[kind]) return cOnceP[kind];
@@ -1216,7 +1221,7 @@ async function cntRender(){
   if([sd,sa,rd,ra].every(v=>v===null)){box.innerHTML=`カウンターにつながりませんでした。時間をおいて開き直してみてください。<br><span style="opacity:.6">（${esc([...new Set(cLog)].slice(0,4).join(" / ")||"応答なし")}）</span>`;return}
   const f=v=>v===null?"―":v.toLocaleString("ja-JP");
   const el=document.getElementById("cntBox"); if(!el) return;
-  el.innerHTML=`このサイトに来た人　本日 <b>${f(sd)}</b> 人／累計 <b>${f(sa)}</b> 人<br>この部屋まで来た人　本日 <b>${f(rd)}</b> 人／累計 <b>${f(ra)}</b> 人<br><span style="opacity:.7">※${CNT.since}から集計。同じ端末は1日1回まで数えています。</span>`;
+  el.innerHTML=`このサイトに来た人　本日 <b>${f(sd)}</b> 人／累計 <b>${f(sa)}</b> 人<br>この部屋まで来た人　本日 <b>${f(rd)}</b> 人／累計 <b>${f(ra)}</b> 人<br><span>※${CNT.since}から集計。同じ端末は1日1回まで数えています。</span>`;
 }
 cOnce("site");
 function secretRuby(t){return esc(t).replace(/([一-龥々]+)《([^》]+)》/g,"<ruby>$1<rt>$2</rt></ruby>")}
